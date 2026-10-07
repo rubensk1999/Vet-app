@@ -1,0 +1,42 @@
+{
+  "name": "vet-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "postinstall": "prisma generate",
+    "seed": "ts-node prisma/seed.ts",
+    "db:deploy": "prisma migrate deploy",
+    "vercel-build": "prisma migrate deploy && next build",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "next": "^16.2.12",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "better-auth": "^1.6.25",
+    "@better-auth/prisma-adapter": "^1.6.25",
+    "@prisma/client": "^7.7.0",
+    "@prisma/adapter-pg": "^7.7.0",
+    "pg": "^8.13.0",
+    "dotenv": "^16.4.0"
+  },
+  "devDependencies": {
+    "prisma": "^7.7.0",
+    "typescript": "^5.4.0",
+    "ts-node": "^10.9.0",
+    "tsx" : "*",
+    "tsconfig-paths": "^4.2.0",
+    "@types/node": "^20.11.0",
+    "@types/react": "^19.0.0",
+    "@types/pg": "^8.11.0",
+    "tailwindcss": "^4.0.0",
+    "@tailwindcss/postcss": "^4.0.0",
+    "vitest": "^3.0.0",
+    "vite-tsconfig-paths": "^5.1.0"
+  }
+}

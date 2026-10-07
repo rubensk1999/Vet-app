@@ -1,0 +1,155 @@
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+  schemas  = ["vet"]
+}
+
+model Appointment {
+  id           String            @id
+  time_slot_id String            @unique
+  user_id      String?
+  pet_id       String?
+  guest_name   String?
+  guest_email  String?
+  guest_phone  String?
+  reason       String
+  status       AppointmentStatus @default(requested)
+  created_at   DateTime          @default(now())
+  Pet          Pet?              @relation(fields: [pet_id], references: [id])
+  TimeSlot     TimeSlot          @relation(fields: [time_slot_id], references: [id])
+  user         user?             @relation(fields: [user_id], references: [id])
+
+  @@schema("vet")
+}
+
+model Pet {
+  id          String        @id
+  user_id     String
+  name        String
+  species     String
+  breed       String?
+  birth_date  DateTime?
+  notes       String?
+  Appointment Appointment[]
+  user        user          @relation(fields: [user_id], references: [id])
+
+  @@schema("vet")
+}
+
+model TimeSlot {
+  id          String       @id
+  date        DateTime
+  start_time  String
+  end_time    String
+  status      SlotStatus   @default(available)
+  created_at  DateTime     @default(now())
+  Appointment Appointment?
+
+  @@schema("vet")
+}
+
+model account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime
+  user                  user      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@schema("vet")
+}
+
+model session {
+  id             String   @id
+  expiresAt      DateTime
+  token          String   @unique
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime
+  ipAddress      String?
+  userAgent      String?
+  userId         String
+  impersonatedBy String?
+  user           user     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@schema("vet")
+}
+
+model user {
+  id            String        @id
+  name          String
+  email         String        @unique
+  emailVerified Boolean       @default(false)
+  image         String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime
+  role          Role          @default(customer)
+  phone         String?
+  banned        Boolean?      @default(false)
+  banReason     String?
+  banExpires    DateTime?
+  Appointment   Appointment[]
+  Pet           Pet[]
+  account       account[]
+  session       session[]
+
+  @@schema("vet")
+}
+
+model verification {
+  id         String    @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime? @default(now())
+  updatedAt  DateTime?
+
+  @@index([identifier])
+  @@schema("vet")
+}
+
+model test {
+  name       String     @unique
+  date       DateTime
+
+  @@schema("vet")
+}
+
+enum AppointmentStatus {
+  requested
+  confirmed
+  completed
+  cancelled
+
+  @@schema("vet")
+}
+
+enum Role {
+  customer
+  staff
+  admin
+
+  @@schema("vet")
+}
+
+enum SlotStatus {
+  available
+  booked
+
+  @@schema("vet")
+}
+

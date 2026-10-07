@@ -1,0 +1,40 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-display: 'Fraunces', serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+
+  --color-ink: #1c2321;
+  --color-canvas: #edf3ee;
+  --color-forest: #1f3a34;
+  --color-forest-light: #2e5349;
+  --color-amber: #e8863c;
+  --color-amber-dark: #c96f2c;
+  --color-clay: #8b5e3c;
+  --color-card: #ffffff;
+  --color-border: #d8e2db;
+  --color-danger: #b3452c;
+}
+
+body {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+}
+
+/* Ticket-stub divider: the signature element for time slots. */
+.ticket-perforation {
+  background-image: radial-gradient(
+    circle,
+    var(--color-canvas) 3px,
+    transparent 3px
+  );
+  background-size: 12px 12px;
+  background-position: center;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-amber);
+  outline-offset: 2px;
+}
