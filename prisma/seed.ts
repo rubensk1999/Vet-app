@@ -1,6 +1,7 @@
 import 'dotenv/config'
 import { prisma } from '../src/lib/prisma'
 import { auth } from '../src/lib/auth'
+//this is an irrelevant but necessary adittion
 
 async function main() {
   const existingAdmin = await prisma.user.findFirst({
