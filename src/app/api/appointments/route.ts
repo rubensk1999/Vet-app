@@ -86,7 +86,7 @@ export async function GET() {
 
   const appointments = await prisma.appointment.findMany({
     where: { user_id: session.user.id },
-    include: { time_slot: true, pet: true },
+    include: { TimeSlot: true, pet: true },
     orderBy: { created_at: 'desc' },
   })
   return NextResponse.json(appointments)

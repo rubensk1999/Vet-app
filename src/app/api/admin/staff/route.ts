@@ -22,7 +22,7 @@ export async function POST(req: Request) {
         name,
         email,
         password: tempPassword,
-        role: 'staff',
+        role: 'admin',
       },
       headers: await headers(),
     })
