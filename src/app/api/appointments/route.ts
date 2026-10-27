@@ -74,7 +74,7 @@ export async function GET() {
   // Staff/admin see all appointments; customers see only their own.
   if (role === 'staff' || role === 'admin') {
     const appointments = await prisma.appointment.findMany({
-      include: { time_slot: true, pet: true, user: true },
+      include: { TimeSlot: true, Pet: true, user: true },
       orderBy: { created_at: 'desc' },
     })
     return NextResponse.json(appointments)
@@ -86,7 +86,7 @@ export async function GET() {
 
   const appointments = await prisma.appointment.findMany({
     where: { user_id: session.user.id },
-    include: { TimeSlot: true, pet: true },
+    include: { TimeSlot: true, Pet: true },
     orderBy: { created_at: 'desc' },
   })
   return NextResponse.json(appointments)
