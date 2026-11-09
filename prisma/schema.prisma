@@ -28,7 +28,7 @@ model Appointment {
 }
 
 model Pet {
-  id          String        @id
+  id String @id @default(uuid())
   user_id     String
   name        String
   species     String

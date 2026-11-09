@@ -34,7 +34,7 @@ export async function POST(req: Request) {
       species,
       breed,
       birth_date: birth_date ? new Date(birth_date) : undefined,
-      notes,
+      notes
     },
   })
 
