@@ -42,7 +42,7 @@ model Pet {
 }
 
 model TimeSlot {
-  id          String       @id
+  id          String       @id @default(uuid())
   date        DateTime
   start_time  String
   end_time    String

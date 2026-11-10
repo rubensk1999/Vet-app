@@ -38,7 +38,10 @@ export async function POST(req: Request) {
   }
 
   const slot = await prisma.timeSlot.create({
-    data: { date: new Date(date), start_time, end_time },
+    data: { 
+      date: new Date(date), 
+      start_time, 
+      end_time },
   })
 
   return NextResponse.json(slot)
