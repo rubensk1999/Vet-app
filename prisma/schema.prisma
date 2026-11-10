@@ -10,7 +10,7 @@ datasource db {
 }
 
 model Appointment {
-  id           String            @id
+  id           String            @id @default(uuid())
   time_slot_id String            @unique
   user_id      String?
   pet_id       String?
